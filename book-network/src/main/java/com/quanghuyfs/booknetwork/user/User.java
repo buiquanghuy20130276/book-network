@@ -4,15 +4,14 @@ import com.quanghuyfs.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.security.auth.Subject;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +23,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
     @Id
@@ -31,7 +31,7 @@ public class User implements UserDetails, Principal {
     private Integer id;
     private String firstname;
     private String lastname;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
     private String password;
@@ -90,7 +90,7 @@ public class User implements UserDetails, Principal {
         return email;
     }
 
-    private String getFullName() {
+    public String getFullName() {
         return firstname + " " + lastname;
     }
 

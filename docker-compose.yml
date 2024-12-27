@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   postgres:
     container_name: postgres-sql-bn
@@ -14,16 +16,20 @@ services:
     networks:
       - book-network
     restart: unless-stopped
+
   mail-dev:
     container_name: mail-dev-bn
     image: maildev/maildev
     ports:
       - 1080:1080
       - 1025:1025
+    networks:
+      - book-network
 
 networks:
   book-network:
     driver: bridge
+
 volumes:
   postgres:
     driver: local

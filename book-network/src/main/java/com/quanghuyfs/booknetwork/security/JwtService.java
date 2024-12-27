@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class JwtService {
         return claimResolve.apply(claims);
     }
 
-    private Claims extractAllClaim(String token) {
+    public Claims extractAllClaim(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -45,12 +44,12 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    private <K, V> String generateToken(HashMap<String, Objects> claims, UserDetails userDetails) {
+    public  <K, V> String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
 
         return buildToken(claims, userDetails, jwtExpiration);
     }
 
-    private String buildToken(HashMap<String, Objects> extractClaims, UserDetails userDetails, long jwtExpiration) {
+    public String buildToken(HashMap<String, Object> extractClaims, UserDetails userDetails, long jwtExpiration) {
         var authorities = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
