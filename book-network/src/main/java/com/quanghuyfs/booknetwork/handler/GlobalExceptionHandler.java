@@ -1,5 +1,6 @@
 package com.quanghuyfs.booknetwork.handler;
 
+import com.quanghuyfs.booknetwork.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,6 +73,14 @@ public class GlobalExceptionHandler {
                         .build());
 
     }
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse>handleException(OperationNotPermittedException exp){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ExceptionResponse.builder()
+                        .error(exp.getMessage())
+                        .build());
+
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse>handleException(Exception exp){
         exp.printStackTrace();
@@ -82,4 +91,5 @@ public class GlobalExceptionHandler {
                         .build());
 
     }
+
 }
