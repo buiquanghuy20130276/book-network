@@ -17,8 +17,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-public class FeedBack extends BaseEntity {
-    private Double node;
+public class Feedback extends BaseEntity {
+    private Double rate;
     private String comment;
     @ManyToOne
     @JoinColumn(name = "book_id")

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface BookTransactionHistoryRepository extends JpaRepository<BookTransactionHistory,Integer> {
     @Query("select history from BookTransactionHistory  history where history.user.id=:userId")
-    Page<BookTransactionHistory> findAllBorrowedBooks(Object pageable, Integer userId);
+    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, Integer userId);
     @Query("select history from BookTransactionHistory  history where history.book.owner.id=:userId")
 
     Page<BookTransactionHistory> finAllReturnedBooks(Pageable pageable, Integer userId);
